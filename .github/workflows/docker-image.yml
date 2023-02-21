@@ -21,4 +21,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: cross-compiler
-        path: /usr/local/cross
+        path: /usr/local/cross/
