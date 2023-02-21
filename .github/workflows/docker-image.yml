@@ -17,6 +17,8 @@ jobs:
     - name: Build the Docker image
       run: docker build -t tss-crosscomp-dev-env .
 
-    uses: actions/upload-artifact@v3
-      name: my-artifact
-      path: /usr/local/cross
+    - name: Upload Cross Compiler Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: cross-compiler
+        path: /usr/local/cross
