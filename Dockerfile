@@ -27,8 +27,4 @@ RUN git clone --depth 1 git://gcc.gnu.org/git/gcc.git && \
     make install-gcc && \
     make install-target-libgcc
 
-WORKDIR /usr/src
-
-WORKDIR /usr/src/gcc-build
-
 ENV PATH="/usr/local/bin:${PATH}"
