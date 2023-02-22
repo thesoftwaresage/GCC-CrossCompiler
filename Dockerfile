@@ -1,7 +1,11 @@
 FROM alpine:latest
 
-RUN apk add --no-cache build-base gcc g++ make flex bison mpc1-dev gmp-dev mpfr-dev texinfo libstdc++ linux-headers git nasm dhclient
+ARG commit_name
+ARG commit_token
+ARG buildSha 
+ARG buildref
 
+RUN apk add --no-cache build-base gcc g++ make flex bison mpc1-dev gmp-dev mpfr-dev texinfo libstdc++ linux-headers git nasm dhclient
 
 WORKDIR /usr/src
 
@@ -28,3 +32,13 @@ RUN git clone --depth 1 git://gcc.gnu.org/git/gcc.git && \
     make install-target-libgcc
 
 ENV PATH="/usr/local/bin:${PATH}"
+
+RUN git config credential.helper \
+    '!f() { echo username=$commit_name; echo "password=$commit_token"; };f'
+
+RUN cd /usr/local/cross && \
+    git init
+    git commit -m "Building for Commit of GCC-CrossCompiler branch = $buildref SHA = $buildSha"
+    git branch -M main
+    git remote add origin git@github.com:thesoftwaresage/GCC-CrossCompiler-BUILD.git
+    git push -u origin main
