@@ -34,6 +34,8 @@ RUN git clone --depth 1 git://gcc.gnu.org/git/gcc.git && \
 ENV PATH="/usr/local/bin:${PATH}"
 
 RUN cd /usr/local/cross && \
+    git config --global user.email "$commit_name"  && \
+    git config --global user.name "The Software Sage"  && \
     git init && \
     git commit -m "Building for Commit of GCC-CrossCompiler branch = $buildref SHA = $buildSha" && \
     git branch -M BUILD-$buildref/SHA-$buildSha && \
