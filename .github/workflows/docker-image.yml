@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build -t tss-crosscomp-dev-env --build-arg commit_name=${{ secrets.COMMIT_NAME }} --build-arg commit_token=${{ secrets.COMMIT_TOKEN }} .
+      run: docker build -t tss-crosscomp-dev-env --build-arg commit_name=${{ secrets.COMMIT_NAME }} --build-arg commit_token=${{ secrets.COMMIT_TOKEN }} --build-arg buildSha=${{ github.sha }} --build-arg buildref=${{ github.ref }} .
 
     - name: Upload Cross Compiler Artifact
       uses: actions/upload-artifact@v3
