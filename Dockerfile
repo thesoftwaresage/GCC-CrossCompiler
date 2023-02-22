@@ -37,8 +37,8 @@ RUN git config credential.helper \
     '!f() { echo username=$commit_name; echo "password=$commit_token"; };f'
 
 RUN cd /usr/local/cross && \
-    git init
-    git commit -m "Building for Commit of GCC-CrossCompiler branch = $buildref SHA = $buildSha"
-    git branch -M BUILD-$buildref/SHA-$buildSha
-    git remote add origin git@github.com:thesoftwaresage/GCC-CrossCompiler-BUILD.git
-    git push -u origin BUILD-$buildref/SHA-$buildSha
+    git init && \
+    git commit -m "Building for Commit of GCC-CrossCompiler branch = $buildref SHA = $buildSha" && \
+    git branch -M BUILD-$buildref/SHA-$buildSha && \
+    git remote add origin git@github.com:thesoftwaresage/GCC-CrossCompiler-BUILD.git && \
+    git push -u origin BUILD-$buildref/SHA-$buildSha && \
