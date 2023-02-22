@@ -36,9 +36,10 @@ ENV PATH="/usr/local/bin:${PATH}"
 RUN cd /usr/local/cross && \
     git config --global user.email "$commit_name"  && \
     git config --global user.name "The Software Sage"  && \
+    git config --global credential.helper store && \
     git init && \
     git add -A && \
     git commit -m "Building for Commit of GCC-CrossCompiler branch = $buildref SHA = $buildSha" && \
     git branch -M BUILD-$buildref/SHA-$buildSha && \
-    git remote add origin https://$commit_name:$commit_token@github.com/thesoftwaresage/GCC-CrossCompiler-BUILD.git && \
+    git remote add origin https://github.com/thesoftwaresage/GCC-CrossCompiler-BUILD.git && \
     git push -u origin BUILD-$buildref/SHA-$buildSha
