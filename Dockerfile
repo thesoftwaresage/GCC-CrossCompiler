@@ -5,7 +5,7 @@ ARG commit_token
 ARG buildSha 
 ARG buildref
 
-RUN apk add --no-cache build-base gcc g++ make flex bison mpc1-dev gmp-dev mpfr-dev texinfo libstdc++ linux-headers git nasm dhclient
+RUN apk add --no-cache build-base gcc g++ make flex bison mpc1-dev gmp-dev mpfr-dev texinfo libstdc++ linux-headers git nasm dhclient ssh
 
 WORKDIR /usr/src
 
@@ -41,5 +41,5 @@ RUN cd /usr/local/cross && \
     git add -A && \
     git commit -m "Building for Commit of GCC-CrossCompiler branch = $buildref SHA = $buildSha" && \
     git branch -M BUILD-$buildref/SHA-$buildSha && \
-    git remote add origin https://github.com/thesoftwaresage/GCC-CrossCompiler-BUILD.git && \
+    git remote add origin git@github.com:thesoftwaresage/GCC-CrossCompiler-BUILD.git && \
     git push -u origin BUILD-$buildref/SHA-$buildSha
