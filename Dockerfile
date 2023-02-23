@@ -5,7 +5,7 @@ ARG commit_token
 ARG buildSha 
 ARG buildref
 
-RUN apk add --no-cache build-base gcc g++ make flex bison mpc1-dev gmp-dev mpfr-dev texinfo libstdc++ linux-headers git nasm dhclient ssh
+RUN apk add --no-cache build-base gcc g++ make flex bison mpc1-dev gmp-dev mpfr-dev texinfo libstdc++ linux-headers git nasm dhclient
 
 WORKDIR /usr/src
 
