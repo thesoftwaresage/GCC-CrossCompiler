@@ -5,7 +5,7 @@ ARG commit_token
 ARG buildSha 
 ARG buildref
 
-RUN apk add --no-cache build-base gcc g++ make flex bison mpc1-dev gmp-dev mpfr-dev texinfo libstdc++ linux-headers git nasm dhclient
+RUN apk add --no-cache build-base gcc g++ make flex bison mpc1-dev gmp-dev mpfr-dev texinfo libstdc++ linux-headers git nasm dhclient openssh
 
 WORKDIR /usr/src
 
@@ -34,6 +34,8 @@ RUN git clone --depth 1 git://gcc.gnu.org/git/gcc.git && \
 ENV PATH="/usr/local/bin:${PATH}"
 
 RUN cd /usr/local/cross && \
+    rc-update add sshd && \
+    service sshd start && \
     git config --global user.email "$commit_name"  && \
     git config --global user.name "The Software Sage"  && \
     git config --global credential.helper store && \
