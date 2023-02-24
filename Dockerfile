@@ -34,6 +34,7 @@ RUN git clone --depth 1 git://gcc.gnu.org/git/gcc.git && \
 ENV PATH="/usr/local/bin:${PATH}"
 
 RUN cd /usr/local/cross && \
+    ssh-keyscan github.com >> ~/.ssh/known_hosts && \ 
     git config --global user.email "$commit_name"  && \
     git config --global user.name "The Software Sage"  && \
     git config --global credential.helper store && \
