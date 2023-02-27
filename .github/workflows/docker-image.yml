@@ -1,24 +1,38 @@
 name: Build GCC-CrossCompiler Docker Image
+on: [push]
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+name: Create Custom VM Image
 
 jobs:
-
-  build:
-
+  build-image:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build -t tss-crosscomp-dev-env --build-arg commit_name=${{ secrets.COMMIT_NAME }} --build-arg commit_token=${{ secrets.COMMIT_TOKEN }} --build-arg buildSha=${{ github.sha }} --build-arg buildref=${{ github.ref }} .
+      - name: Log in with Azure
+        uses: azure/login@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
 
-    - name: Upload Cross Compiler Artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: cross-compiler
-        path: /usr/local/cross/
+# name: Build GCC-CrossCompiler Docker Image
+#
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+# 
+# jobs:
+# 
+#   build:
+# 
+#     runs-on: ubuntu-latest
+# 
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Build the Docker image
+#       run: docker build -t tss-crosscomp-dev-env --build-arg commit_name=${{ secrets.COMMIT_NAME }} --build-arg commit_token=${{ secrets.COMMIT_TOKEN }} --build-arg buildSha=${{ github.sha }} --build-arg buildref=${{ github.ref }} .
+# 
+#     - name: Upload Cross Compiler Artifact
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: cross-compiler
+#         path: /usr/local/cross/
