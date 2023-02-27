@@ -1,14 +1,51 @@
-on: [push]
-name: Build GCC-CrossCompiler Docker Image
+on:
+  push:
+    branches:
+      - main
+
+name: Azure VM Workflow
+
+env:
+  AZURE_VM_IMAGE: Canonical:UbuntuServer:20.04-LTS:latest
+  AZURE_VM_SIZE: B1s
 
 jobs:
-  build-image:
+  create-vm:
     runs-on: ubuntu-latest
     steps:
-      - name: Log in with Azure
-        uses: azure/login@v1
-        with:
-          creds: '${{ secrets.AZURE_CREDENTIALS }}'
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Create VM
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az vm create \
+            --resource-group my-resource-group \
+            --name my-vm \
+            --image ${{ env.AZURE_VM_IMAGE }} \
+            --size ${{ env.AZURE_VM_SIZE }} \
+            --admin-username azureuser \
+            --generate-ssh-keys
+
+    - name: Run command on VM
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az vm run-command invoke \
+            --resource-group my-resource-group \
+            --name my-vm \
+            --command-id RunShellScript \
+            --scripts "echo 'Hello, World!'"
+
+    - name: Stop VM
+      uses: azure/CLI@v1
+      with:
+        inlineScript: |
+          az vm stop \
+            --resource-group my-resource-group \
+            --name my-vm
 
 # name: Build GCC-CrossCompiler Docker Image
 #
