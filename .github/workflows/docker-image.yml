@@ -1,7 +1,5 @@
-name: Build GCC-CrossCompiler Docker Image
 on: [push]
-
-name: Create Custom VM Image
+name: Build GCC-CrossCompiler Docker Image
 
 jobs:
   build-image:
