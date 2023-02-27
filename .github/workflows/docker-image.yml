@@ -47,8 +47,6 @@ jobs:
             --resource-group my-resource-group \
             --name my-vm
 
-
-
 # name: Build GCC-CrossCompiler Docker Image
 #
 # on:
