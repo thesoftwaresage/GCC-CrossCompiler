@@ -49,6 +49,7 @@ jobs:
             --resource-group QUANTI_1 \
             --name qzncgcccrossbuild
 
+
 #        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 # name: Build GCC-CrossCompiler Docker Image
