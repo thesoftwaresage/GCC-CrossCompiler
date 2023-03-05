@@ -9,7 +9,13 @@ env:
   AZURE_VM_IMAGE: Canonical:UbuntuServer:20.04-LTS:latest
   AZURE_VM_SIZE: B1s
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
+  environment: testGithubAction
+
   create-vm:
     runs-on: ubuntu-latest
     steps:
