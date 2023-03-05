@@ -6,7 +6,7 @@ on:
 name: Azure VM Workflow
 
 env:
-  AZURE_VM_IMAGE: Alpine:alpine-3.14-gen2:latest
+  AZURE_VM_IMAGE: debian:debian-11:11-gen2:latest
   AZURE_VM_SIZE: Standard_B2s
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
             --size ${{ env.AZURE_VM_SIZE }} \
             --public-ip-address "None" \
             --storage-sku StandardSSD_LRS \
-            --os-disk-size-gb 10 \
+            --os-disk-size-gb 16 \
             --nsg "qznc-nsg" \
             --admin-username azureuser \
             --generate-ssh-keys
