@@ -6,7 +6,7 @@ on:
 name: Azure VM Workflow
 
 env:
-  AZURE_VM_IMAGE: Canonical:UbuntuServer:20.04-LTS:latest
+  AZURE_VM_IMAGE: debian:debian-11:11-gen2:latest
   AZURE_VM_SIZE: B1s
 
 jobs:
