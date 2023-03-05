@@ -18,7 +18,6 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-#        enable-AzPSSession: true
 
     - name: Create VM
       uses: azure/CLI@v1
@@ -29,6 +28,10 @@ jobs:
             --name qzncgcccrossbuild \
             --image ${{ env.AZURE_VM_IMAGE }} \
             --size ${{ env.AZURE_VM_SIZE }} \
+            --public-ip-address "None" \
+            --storage-sku StandardSSD_LRS \
+            --os-disk-size-gb 10 \
+            --nsg qznc-nsg\ 
             --admin-username azureuser \
             --generate-ssh-keys
 
