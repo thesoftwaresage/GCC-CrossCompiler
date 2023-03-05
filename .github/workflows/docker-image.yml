@@ -31,7 +31,7 @@ jobs:
             --public-ip-address "None" \
             --storage-sku StandardSSD_LRS \
             --os-disk-size-gb 10 \
-            --nsg qznc-nsg\ 
+            --nsg qznc-nsg \ 
             --admin-username azureuser \
             --generate-ssh-keys
 
