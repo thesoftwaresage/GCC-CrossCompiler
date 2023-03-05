@@ -9,21 +9,16 @@ env:
   AZURE_VM_IMAGE: Canonical:UbuntuServer:20.04-LTS:latest
   AZURE_VM_SIZE: B1s
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
 
   create-vm:
     runs-on: ubuntu-latest
 
-    environment: testGithubAction
-
     steps:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        enable-AzPSSession: true
 
     - name: Create VM
       uses: azure/CLI@v1
