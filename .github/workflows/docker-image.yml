@@ -30,20 +30,21 @@ jobs:
             --size ${{ env.AZURE_VM_SIZE }} \
             --public-ip-address "None" \
             --storage-sku StandardSSD_LRS \
-            --os-disk-size-gb 16 \
+            --os-disk-size-gb 40 \
             --nsg "qznc-nsg" \
             --admin-username azureuser \
             --generate-ssh-keys
 
-    - name: Run command on VM
-      uses: azure/CLI@v1
+    - name: checkout
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build -t tss-crosscomp-dev-env --build-arg commit_name=${{ secrets.COMMIT_NAME }} --build-arg commit_token=${{ secrets.COMMIT_TOKEN }} --build-arg buildSha=${{ github.sha }} --build-arg buildref=${{ github.ref }} .
+
+    - name: Upload Cross Compiler Artifact
+      uses: actions/upload-artifact@v3
       with:
-        inlineScript: |
-          az vm run-command invoke \
-            --resource-group QUANTI_1 \
-            --name qzncgcccrossbuild \
-            --command-id RunShellScript \
-            --scripts "echo 'Hello, World!'"
+        name: cross-compiler
+        path: /usr/local/cross/
 
     - name: Stop VM
       uses: azure/CLI@v1
@@ -52,34 +53,4 @@ jobs:
           az vm stop \
             --resource-group QUANTI_1 \
             --name qzncgcccrossbuild
-
-
-        # client-id: 52c19246-9e4f-47c2-98c0-f076b7b02ac9
-        # tenant-id: 9ee40180-8a9f-4599-9232-7414208d77c3
-        # subscription-id: 9e38d4a6-832b-4a0f-9aae-bb85b93126be
-#        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
-# name: Build GCC-CrossCompiler Docker Image
-#
-# on:
-#   push:
-#     branches: [ "main" ]
-#   pull_request:
-#     branches: [ "main" ]
-# 
-# jobs:
-# 
-#   build:
-# 
-#     runs-on: ubuntu-latest
-# 
-#     steps:
-#     - uses: actions/checkout@v3
-#     - name: Build the Docker image
-#       run: docker build -t tss-crosscomp-dev-env --build-arg commit_name=${{ secrets.COMMIT_NAME }} --build-arg commit_token=${{ secrets.COMMIT_TOKEN }} --build-arg buildSha=${{ github.sha }} --build-arg buildref=${{ github.ref }} .
-# 
-#     - name: Upload Cross Compiler Artifact
-#       uses: actions/upload-artifact@v3
-#       with:
-#         name: cross-compiler
-#         path: /usr/local/cross/
+ 
