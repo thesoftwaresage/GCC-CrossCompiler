@@ -47,8 +47,6 @@ jobs:
             --resource-group QUANTI_1 \
             --name qzncgcccrossbuild
 
-
-
 # name: Build GCC-CrossCompiler Docker Image
 #
 # on:
