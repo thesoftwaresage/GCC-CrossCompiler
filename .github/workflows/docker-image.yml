@@ -14,10 +14,12 @@ permissions:
   contents: read
 
 jobs:
-  environment: testGithubAction
 
   create-vm:
     runs-on: ubuntu-latest
+
+    environment: testGithubAction
+
     steps:
     - uses: azure/login@v1
       with:
