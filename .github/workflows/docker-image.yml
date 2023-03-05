@@ -35,17 +35,16 @@ jobs:
             --admin-username azureuser \
             --generate-ssh-keys
 
-    - name: checkout
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build -t tss-crosscomp-dev-env --build-arg commit_name=${{ secrets.COMMIT_NAME }} --build-arg commit_token=${{ secrets.COMMIT_TOKEN }} --build-arg buildSha=${{ github.sha }} --build-arg buildref=${{ github.ref }} .
-
-    - name: Upload Cross Compiler Artifact
-      uses: actions/upload-artifact@v3
+    - name: Run command on VM
+      uses: azure/CLI@v1
       with:
-        name: cross-compiler
-        path: /usr/local/cross/
-
+        inlineScript: |
+          az vm run-command invoke \
+            --resource-group QUANTI_1 \
+            --name qzncgcccrossbuild \
+            --command-id RunShellScript \
+            --scripts "echo 'Hello, World!'"
+    
     - name: Stop VM
       uses: azure/CLI@v1
       with:
@@ -54,3 +53,13 @@ jobs:
             --resource-group QUANTI_1 \
             --name qzncgcccrossbuild
  
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Build the Docker image
+#       run: docker build -t tss-crosscomp-dev-env --build-arg commit_name=${{ secrets.COMMIT_NAME }} --build-arg commit_token=${{ secrets.COMMIT_TOKEN }} --build-arg buildSha=${{ github.sha }} --build-arg buildref=${{ github.ref }} .
+# 
+#     - name: Upload Cross Compiler Artifact
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: cross-compiler
+#         path: /usr/local/cross/
