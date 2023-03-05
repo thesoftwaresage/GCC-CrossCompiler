@@ -23,9 +23,7 @@ jobs:
     steps:
     - uses: azure/login@v1
       with:
-        client-id: 52c19246-9e4f-47c2-98c0-f076b7b02ac9
-        tenant-id: 9ee40180-8a9f-4599-9232-7414208d77c3
-        subscription-id: 9e38d4a6-832b-4a0f-9aae-bb85b93126be
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: Create VM
       uses: azure/CLI@v1
@@ -58,7 +56,9 @@ jobs:
             --name qzncgcccrossbuild
 
 
-
+        # client-id: 52c19246-9e4f-47c2-98c0-f076b7b02ac9
+        # tenant-id: 9ee40180-8a9f-4599-9232-7414208d77c3
+        # subscription-id: 9e38d4a6-832b-4a0f-9aae-bb85b93126be
 #        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
 # name: Build GCC-CrossCompiler Docker Image
