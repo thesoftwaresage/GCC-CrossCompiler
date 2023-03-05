@@ -18,7 +18,7 @@ jobs:
     - uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
-        enable-AzPSSession: true
+#        enable-AzPSSession: true
 
     - name: Create VM
       uses: azure/CLI@v1
