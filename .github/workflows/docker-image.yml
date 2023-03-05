@@ -22,8 +22,8 @@ jobs:
       with:
         inlineScript: |
           az vm create \
-            --resource-group my-resource-group \
-            --name my-vm \
+            --resource-group QUANTI_1 \
+            --name qzncgcccrossbuild \
             --image ${{ env.AZURE_VM_IMAGE }} \
             --size ${{ env.AZURE_VM_SIZE }} \
             --admin-username azureuser \
@@ -34,8 +34,8 @@ jobs:
       with:
         inlineScript: |
           az vm run-command invoke \
-            --resource-group my-resource-group \
-            --name my-vm \
+            --resource-group QUANTI_1 \
+            --name qzncgcccrossbuild \
             --command-id RunShellScript \
             --scripts "echo 'Hello, World!'"
 
@@ -44,8 +44,8 @@ jobs:
       with:
         inlineScript: |
           az vm stop \
-            --resource-group my-resource-group \
-            --name my-vm
+            --resource-group QUANTI_1 \
+            --name qzncgcccrossbuild
 
 # name: Build GCC-CrossCompiler Docker Image
 #
